@@ -1,7 +1,7 @@
 #!/bin/bash
 # user data will get sudo access
 dnf install ansible -y
-ansible-pull  -i localhost, -U https://github.com/ushanayana/expense-ansible-roles.git main.yaml -e component=backend 
+ansible-pull -U https://github.com/ushanayana/expense-ansible-roles.git main.yaml -e component=backend 
 # cd /tmp
 # git clone https://github.com/ushanayana/expense-ansible-roles.git
 # cd expense-ansible-roles
