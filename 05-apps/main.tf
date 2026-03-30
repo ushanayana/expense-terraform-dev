@@ -1,27 +1,28 @@
 resource "aws_instance" "backend" {
-  ami           = local.ami_id
+  ami           = data.aws_ami.ami_info.id
   instance_type = "t3.micro"
-  subnet_id = local.private_subnet_id
-  vpc_security_group_ids = [local.catalogue_sg_id]
+  subnet_id = local.private_subnet_ids
+  vpc_security_group_ids = [data.aws_ssm_parameter.backend_sg_id.value]
 
   tags = merge(
     {
-        Name = "${var.project}-${var.environment}-catalogue"
-    },
-    local.common_tags
+        Name = "${var.project}-${var.environment}-backend"
+    }
   )
 }
 
+
+
 resource "terraform_data" "backend" {
   triggers_replace = [
-    aws_instance.catalogue.id
+    aws_instance.backend.id
   ]
 
   connection {
     type     = "ssh"
     user     = "ec2-user"
     password = "DevOps321"
-    host     = aws_instance.catalogue.private_ip
+    host     = aws_instance.backend.private_ip
   }
 
   provisioner "file" {
