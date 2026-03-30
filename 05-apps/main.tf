@@ -6,7 +6,7 @@ resource "aws_instance" "backend" {
 
   tags = merge(
     {
-        Name = "${var.project}-${var.environment}-backend"
+        Name = "${var.project_name}-${var.environment}-backend"
     }
   )
 }
