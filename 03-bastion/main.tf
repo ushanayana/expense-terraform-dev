@@ -8,6 +8,10 @@ module "bastion" {
   subnet_id     =   local.public_subnet_ids
   ami = data.aws_ami.ami_info.id 
 
+
+  
+  user_data = file("bastion.sh")
+
   tags = merge(
     var.common_tags,
     {

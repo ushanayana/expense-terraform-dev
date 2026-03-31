@@ -36,6 +36,46 @@ resource "terraform_data" "backend" {
         "sudo sh /tmp/bootstrap.sh backend"
     ]
   }
+} 
+
+resource "aws_instance" "frontend" {
+  ami           = data.aws_ami.ami_info.id
+  instance_type = "t3.micro"
+  subnet_id = local.public_subnet_ids
+  vpc_security_group_ids = [data.aws_ssm_parameter.public_sg_ids.value]
+
+  tags = merge(
+    {
+        Name = "${var.project_name}-${var.environment}-frontend"
+    }
+  )
+}
+
+
+
+resource "terraform_data" "frontend" {
+  triggers_replace = [
+    aws_instance.frontend.id
+  ]
+
+  connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    password = "DevOps321"
+    host     = aws_instance.frontend.public_ip
+  }
+
+  provisioner "file" {
+    source      = "bootstrap.sh" # Local file path
+    destination = "/tmp/bootstrap.sh"    # Destination path on the remote machine
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+        "chmod +x /tmp/bootstrap.sh",
+        "sudo sh /tmp/bootstrap.sh frontend"
+    ]
+  }
 }
 
 # resource "aws_ec2_instance_state" "catalogue" {
