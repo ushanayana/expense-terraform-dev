@@ -72,11 +72,15 @@ resource "terraform_data" "frontend" {
   }
 
   provisioner "remote-exec" {
-    inline = [
-        "chmod +x /tmp/bootstrap.sh",
-        "sudo sh /tmp/bootstrap.sh frontend"
-    ]
-  }
+  inline = [
+    "sudo apt-get update -y",
+    "sudo apt-get install -y nginx",
+    "sudo systemctl enable nginx",
+    "sudo systemctl start nginx"
+  ]
+}
+ 
+  
 }
 
 # resource "aws_ec2_instance_state" "catalogue" {
