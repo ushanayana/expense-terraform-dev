@@ -42,7 +42,7 @@ resource "aws_instance" "frontend" {
   ami           = data.aws_ami.ami_info.id
   instance_type = "t3.micro"
   subnet_id = local.public_subnet_ids
-  vpc_security_group_ids = [data.aws_ssm_parameter.public_sg_ids.value]
+  vpc_security_group_ids = [data.aws_ssm_parameter.frontend_sg_id.value]
 
   tags = merge(
     {
