@@ -73,12 +73,13 @@ resource "terraform_data" "frontend" {
 
   provisioner "remote-exec" {
   inline = [
-    "sudo apt-get update -y",
-    "sudo apt-get install -y nginx",
+    "sudo dnf update -y",
+    "sudo dnf install -y nginx",
     "sudo systemctl enable nginx",
     "sudo systemctl start nginx"
   ]
 }
+
  
   
 }
