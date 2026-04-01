@@ -63,6 +63,7 @@ resource "terraform_data" "frontend" {
     user     = "ec2-user"
     password = "DevOps321"
     host     = aws_instance.frontend.public_ip
+    timeout = "5m"
   }
 
   provisioner "file" {
