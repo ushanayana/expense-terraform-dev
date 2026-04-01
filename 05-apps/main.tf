@@ -75,10 +75,12 @@ resource "terraform_data" "frontend" {
   inline = [
     "sudo dnf update -y",
     "sudo dnf install -y nginx",
+    "sudo nginx -t",                 # validate config
     "sudo systemctl enable nginx",
-    "sudo systemctl start nginx"
+    "sudo systemctl restart nginx"
   ]
 }
+
 
  
   
