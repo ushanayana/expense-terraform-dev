@@ -77,15 +77,15 @@ resource "terraform_data" "frontend" {
         "sudo sh /tmp/bootstrap.sh frontend"
     ]
   }
-  provisioner "remote-exec" {
-  inline = [
-    "sudo dnf update -y",
-    "sudo dnf install -y nginx",
-    "sudo nginx -t",                 # validate config
-    "sudo systemctl enable nginx",
-    "sudo systemctl restart nginx"
-  ]
-  }
+  # provisioner "remote-exec" {
+  # inline = [
+  #   "sudo dnf update -y",
+  #   "sudo dnf install -y nginx",
+  #   "sudo nginx -t",                 # validate config
+  #   "sudo systemctl enable nginx",
+  #   "sudo systemctl restart nginx"
+  # ]
+  # }
 
 
  
