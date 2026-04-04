@@ -20,3 +20,4 @@ git clone https://github.com/ushanayana/expense-ansible-roles.git
 cd expense-ansible-roles
 git pull
 ansible-playbook -e component=$component  main.yaml
+
