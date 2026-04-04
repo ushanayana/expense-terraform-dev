@@ -38,6 +38,41 @@ resource "terraform_data" "backend" {
   }
 } 
 
+# module "records" {
+#   source  = "terraform-aws-modules/route53/aws//modules/records"
+#   version = "~> 2.0"
+
+#   zone_name = var.zone_name
+
+#   records = [
+#     {
+#       name    = "backend"
+#       type    = "A"
+#       ttl     = 1
+#       records = [
+#         module.backend.private_ip
+#       ]
+#     },
+#     {
+#       name    = "frontend"
+#       type    = "A"
+#       ttl     = 1
+#       records = [
+#         module.frontend.private_ip
+#       ]
+#     },
+#     {
+#       name    = "" #daws78s.shop
+#       type    = "A"
+#       ttl     = 1
+#       records = [
+#         module.frontend.public_ip
+#       ]
+#     },
+#   ]
+
+# }
+
 # resource "aws_instance" "frontend" {
 #   ami           = data.aws_ami.ami_info.id
 #   instance_type = "t3.micro"
@@ -85,12 +120,12 @@ resource "terraform_data" "backend" {
   #   "sudo systemctl enable nginx",
   #   "sudo systemctl restart nginx"
   # ]
-}
+  # }
 
 
  
   
-}
+# }
 
 # resource "aws_ec2_instance_state" "catalogue" {
 #   instance_id = aws_instance.catalogue.id
