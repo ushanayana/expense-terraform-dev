@@ -71,61 +71,61 @@ resource "terraform_data" "frontend" {
     destination = "/tmp/bootstrap.sh"    # Destination path on the remote machine
   }
 
-  provisioner "remote-exec" {
-    inline = [
-        "chmod +x /tmp/bootstrap.sh",
-        "sudo sh /tmp/bootstrap.sh frontend"
-    ]
-  }
   # provisioner "remote-exec" {
-  # inline = [
-  #   "sudo dnf update -y",
-  #   "sudo dnf install -y nginx",
-  #   "sudo nginx -t",                 # validate config
-  #   "sudo systemctl enable nginx",
-  #   "sudo systemctl restart nginx"
-  # ]
+  #   inline = [
+  #       "chmod +x /tmp/bootstrap.sh",
+  #       "sudo sh /tmp/bootstrap.sh frontend"
+  #   ]
   # }
+  provisioner "remote-exec" {
+  inline = [
+    "sudo dnf update -y",
+    "sudo dnf install -y nginx",
+    "sudo nginx -t",                 # validate config
+    "sudo systemctl enable nginx",
+    "sudo systemctl restart nginx"
+  ]
+  }
 
 
  
   
 }
 
-# module "records" {
-#   source  = "terraform-aws-modules/route53/aws//modules/records"
-#   version = "~> 2.0"
+module "records" {
+  source  = "terraform-aws-modules/route53/aws//modules/records"
+  version = "~> 2.0"
 
-#   zone_name = var.zone_name
+  zone_name = var.zone_name
 
-#   records = [
-#     {
-#       name    = "backend"
-#       type    = "A"
-#       ttl     = 1
-#       records = [
-#         module.backend.private_ip
-#       ]
-#     },
-#     {
-#       name    = "frontend"
-#       type    = "A"
-#       ttl     = 1
-#       records = [
-#         module.frontend.private_ip
-#       ]
-#     },
-#     {
-#       name    = "" #daws78s.shop
-#       type    = "A"
-#       ttl     = 1
-#       records = [
-#         module.frontend.public_ip
-#       ]
-#     },
-#   ]
+  records = [
+    {
+      name    = "backend"
+      type    = "A"
+      ttl     = 1
+      records = [
+        module.backend.private_ip
+      ]
+    },
+    {
+      name    = "frontend"
+      type    = "A"
+      ttl     = 1
+      records = [
+        module.frontend.private_ip
+      ]
+    },
+    {
+      name    = "" #daws78s.shop
+      type    = "A"
+      ttl     = 1
+      records = [
+        module.frontend.public_ip
+      ]
+    },
+  ]
 
-# }
+}
 
 
 
