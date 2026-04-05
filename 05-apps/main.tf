@@ -104,7 +104,7 @@ module "records" {
       type    = "A"
       ttl     = 1
       records = [
-        module.backend.private_ip
+        resource.backend.private_ip
       ]
     },
     {
@@ -112,7 +112,7 @@ module "records" {
       type    = "A"
       ttl     = 1
       records = [
-        module.frontend.private_ip
+        resource.frontend.private_ip
       ]
     },
     {
@@ -120,7 +120,7 @@ module "records" {
       type    = "A"
       ttl     = 1
       records = [
-        module.frontend.public_ip
+        resource.frontend.public_ip
       ]
     },
   ]
