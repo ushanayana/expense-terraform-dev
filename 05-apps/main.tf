@@ -92,40 +92,40 @@ resource "terraform_data" "frontend" {
   
 }
 
-module "records" {
-  source  = "terraform-aws-modules/route53/aws//modules/records"
-  version = "~> 2.0"
+# module "records" {
+#   source  = "terraform-aws-modules/route53/aws//modules/records"
+#   version = "~> 2.0"
 
-  zone_name = var.zone_name
+#   zone_name = var.zone_name
 
-  records = [
-    {
-      name    = "backend"
-      type    = "A"
-      ttl     = 1
-      records = [
-        resource.backend.private_ip
-      ]
-    },
-    {
-      name    = "frontend"
-      type    = "A"
-      ttl     = 1
-      records = [
-        resource.frontend.private_ip
-      ]
-    },
-    {
-      name    = "" #daws78s.shop
-      type    = "A"
-      ttl     = 1
-      records = [
-        resource.frontend.public_ip
-      ]
-    },
-  ]
+#   records = [
+#     {
+#       name    = "backend"
+#       type    = "A"
+#       ttl     = 1
+#       records = [
+#         resource.backend.private_ip
+#       ]
+#     },
+#     {
+#       name    = "frontend"
+#       type    = "A"
+#       ttl     = 1
+#       records = [
+#         resource.frontend.private_ip
+#       ]
+#     },
+#     {
+#       name    = "" #daws78s.shop
+#       type    = "A"
+#       ttl     = 1
+#       records = [
+#         resource.frontend.public_ip
+#       ]
+#     },
+#   ]
 
-}
+# }
 
 
 
