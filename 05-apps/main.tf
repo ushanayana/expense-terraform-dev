@@ -38,45 +38,45 @@ resource "terraform_data" "backend" {
   }
 } 
 
-# resource "aws_instance" "frontend" {
-#   ami           = data.aws_ami.ami_info.id
-#   instance_type = "t3.micro"
-#   subnet_id = local.public_subnet_ids
-#   vpc_security_group_ids = [data.aws_ssm_parameter.frontend_sg_id.value]
+resource "aws_instance" "frontend" {
+  ami           = data.aws_ami.ami_info.id
+  instance_type = "t3.micro"
+  subnet_id = local.public_subnet_ids
+  vpc_security_group_ids = [data.aws_ssm_parameter.frontend_sg_id.value]
 
-#   tags = merge(
-#     {
-#         Name = "${var.project_name}-${var.environment}-frontend"
-#     }
-#   )
-# }
+  tags = merge(
+    {
+        Name = "${var.project_name}-${var.environment}-frontend"
+    }
+  )
+}
 
 
 
-# resource "terraform_data" "frontend" {
-#   triggers_replace = [
-#     aws_instance.frontend.id
-#   ]
+resource "terraform_data" "frontend" {
+  triggers_replace = [
+    aws_instance.frontend.id
+  ]
 
-#   connection {
-#     type     = "ssh"
-#     user     = "ec2-user"
-#     password = "DevOps321"
-#     host     = aws_instance.frontend.public_ip
-#     timeout = "5m"
-#   }
+  connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    password = "DevOps321"
+    host     = aws_instance.frontend.public_ip
+    timeout = "5m"
+  }
 
-#   provisioner "file" {
-#     source      = "bootstrap.sh" # Local file path
-#     destination = "/tmp/bootstrap.sh"    # Destination path on the remote machine
-#   }
+  provisioner "file" {
+    source      = "bootstrap.sh" # Local file path
+    destination = "/tmp/bootstrap.sh"    # Destination path on the remote machine
+  }
 
-#   provisioner "remote-exec" {
-#      inline = [
-#          "chmod +x /tmp/bootstrap.sh",
-#          "sudo sh /tmp/bootstrap.sh frontend"
-#      ]
-#    }
+  provisioner "remote-exec" {
+     inline = [
+         "chmod +x /tmp/bootstrap.sh",
+         "sudo sh /tmp/bootstrap.sh frontend"
+     ]
+   }
 #   #provisioner "remote-exec" {
 #   #inline = [
 #   # "sudo dnf update -y",
@@ -90,7 +90,7 @@ resource "terraform_data" "backend" {
 
  
   
-# }
+}
 
 # module "records" {
 #   source  = "terraform-aws-modules/route53/aws//modules/records"
