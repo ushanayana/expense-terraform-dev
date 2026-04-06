@@ -71,21 +71,21 @@ resource "terraform_data" "frontend" {
     destination = "/tmp/bootstrap.sh"    # Destination path on the remote machine
   }
 
-  # provisioner "remote-exec" {
-  #   inline = [
-  #       "chmod +x /tmp/bootstrap.sh",
-  #       "sudo sh /tmp/bootstrap.sh frontend"
-  #   ]
-  # }
   provisioner "remote-exec" {
-  inline = [
-    "sudo dnf update -y",
-    "sudo dnf install -y nginx",
-    "sudo nginx -t",                 # validate config
-    "sudo systemctl enable nginx",
-    "sudo systemctl restart nginx"
-  ]
-  }
+     inline = [
+         "chmod +x /tmp/bootstrap.sh",
+         "sudo sh /tmp/bootstrap.sh frontend"
+     ]
+   }
+  #provisioner "remote-exec" {
+  #inline = [
+  # "sudo dnf update -y",
+  #  "sudo dnf install -y nginx",
+  # "sudo nginx -t",                 # validate config
+  #  "sudo systemctl enable nginx",
+  #  "sudo systemctl restart nginx"
+  #]
+  #}
 
 
  
