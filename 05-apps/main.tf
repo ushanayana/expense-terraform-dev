@@ -77,6 +77,9 @@ resource "terraform_data" "frontend" {
          "sudo sh /tmp/bootstrap.sh frontend"
      ]
    }
+
+
+   
 #   #provisioner "remote-exec" {
 #   #inline = [
 #   # "sudo dnf update -y",
@@ -87,10 +90,28 @@ resource "terraform_data" "frontend" {
 #   #]
 #   #}
 
-
- 
-  
 }
+
+resource "aws_route53_record" "backend" {
+  zone_id = var.zone_id
+  name = "backend.${var.zone_name}"
+  type = "A"
+  ttl = 1
+  records = aws_instance.backend.private_ip
+  #if recprds already exists
+  allow_overwrite = true
+ }
+
+
+ resource "aws_route53_record" "frontend" {
+  zone_id = var.zone_id
+  name = var.zone_name
+  type = "A"
+  ttl = 1
+  records = aws_instance.frontend.public_ip
+  #if recprds already exists
+  allow_overwrite = true
+ }
 
 # module "records" {
 #   source  = "terraform-aws-modules/route53/aws//modules/records"
