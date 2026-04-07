@@ -97,7 +97,7 @@ resource "aws_route53_record" "backend" {
   name = "backend.${var.zone_name}"
   type = "A"
   ttl = 1
-  records = aws_instance.backend.private_ip
+  records = ["aws_instance.backend.private_ip"]
   #if recprds already exists
   allow_overwrite = true
  }
@@ -108,7 +108,7 @@ resource "aws_route53_record" "backend" {
   name = var.zone_name
   type = "A"
   ttl = 1
-  records = aws_instance.frontend.public_ip
+  records = ["aws_instance.frontend.public_ip"]
   #if recprds already exists
   allow_overwrite = true
  }
